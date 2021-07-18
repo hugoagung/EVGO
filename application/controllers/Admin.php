@@ -3,15 +3,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Admin extends CI_Controller
 {
+    private $loggedUser;
+
     public function __construct()
     {
         parent::__construct();
+        $this->loggedUser = $this->db->get_where('admin', ['email_admin' => $this->session->userdata('email')])->row_array();
         is_logged_in();
     }
+    
     public function index()
     {
         $data['title'] = 'Dashboard';
-        $data['user'] = $this->db->get_where('admin', ['email_admin' => $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->loggedUser;
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);
         $this->load->view('template/topbar', $data);
@@ -23,7 +27,7 @@ class Admin extends CI_Controller
     public function users()
     {
         $this->load->model('users_model');
-        $user = $this->db->get_where('admin', ['email_admin' => $this->session->userdata('email')])->row_array();
+        $user = $this->loggedUser;
         $users = $this->users_model->ambil_semua_data_user();
 
         $data = [
@@ -73,7 +77,7 @@ class Admin extends CI_Controller
 
     public function tambah_user()
     {
-        $user = $this->db->get_where('admin', ['email_admin' => $this->session->userdata('email')])->row_array();
+        $user = $this->loggedUser;
         $data = [
             'title_admin' => 'Tambah User',
             'user' => $user,
@@ -163,7 +167,7 @@ class Admin extends CI_Controller
     {
         $this->load->model('users_model');
 
-        $user = $this->db->get_where('admin', ['email_admin' => $this->session->userdata('email')])->row_array();
+        $user = $this->loggedUser;
         $dataUser = $this->users_model->ambil_satu_user($id_user);
         $data = [
             'title' => 'Update User',
@@ -264,7 +268,7 @@ class Admin extends CI_Controller
     {
         $this->load->model('stok_model');
         $data['title'] = 'Stok Barang ';
-        $data['user'] = $this->db->get_where('admin', ['email_admin' => $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->loggedUser;
         $data['Stok_barang'] = $this->stok_model->ambil_semua_barang_masuk();
 
         $this->load->view('template/header', $data);

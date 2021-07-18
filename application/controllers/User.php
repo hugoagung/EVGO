@@ -3,17 +3,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class User extends CI_Controller
 {
+    private $loggedUser;
 
     public function __construct()
     {
         parent::__construct();
+        $this->loggedUser = $this->db->get_where('admin', ['email_admin' => $this->session->userdata('email')])->row_array();
         is_logged_in();
     }
 
     public function index()
     {
         $data['title'] = 'Halaman Utama';
-        $data['user'] = $this->db->get_where('admin', ['email_admin' => $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->loggedUser;
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);
         $this->load->view('template/topbar', $data);
@@ -25,7 +27,7 @@ class User extends CI_Controller
     {
         $this->load->model('stok_model');
         $data['title'] = 'Stok Barang ';
-        $data['user'] = $this->db->get_where('admin', ['email_admin' => $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->loggedUser;
         $data['Stok_barang'] = $this->stok_model->ambil_semua_barang_masuk();
 
         $this->load->view('template/header', $data);
@@ -42,7 +44,7 @@ class User extends CI_Controller
         $this->load->model('transaksi_model');
         $this->load->model('stok_model');
         $data['title'] = 'Barang masuk ';
-        $data['user'] = $this->db->get_where('admin', ['email_admin' => $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->loggedUser;
         // MISALNYA lu masu ngambil db barang masuk di model tadi
         $data['Barang_masuk'] = $this->transaksi_model->barang_masuk(); // kok eror asu mana gw tau asw 
         $data['barang'] = $this->stok_model->ambil_semua_barang_masuk();
@@ -164,7 +166,7 @@ class User extends CI_Controller
         $this->load->model('transaksi_model');
         $this->load->model('stok_model');
         $data['title'] = 'barang keluar ';
-        $data['user'] = $this->db->get_where('admin', ['email_admin' => $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->loggedUser;
         // MISALNYA lu masu ngambil db barang masuk di model tadi
         $data['Barang_keluar'] = $this->transaksi_model->barang_keluar();
         $data['barang'] = $this->stok_model->ambil_semua_barang_masuk();
@@ -279,7 +281,7 @@ class User extends CI_Controller
     {
         $this->load->model('catatan_model');
         $data['title'] = 'catatan';
-        $data['user'] = $this->db->get_where('admin', ['email_admin' => $this->session->userdata('email_admin')])->row_array();
+        $data['user'] = $this->loggedUser;
         // MISALNYA lu masu ngambil db barang masuk di model tadi
         $data['ambil_catatan'] = $this->catatan_model->ambil_semua_catatan(); // kok eror asu mana gw tau asw 
 
@@ -308,7 +310,7 @@ class User extends CI_Controller
     public function edit()
     {
         $data['title'] = 'Edit Profile';
-        $data['user'] = $this->db->get_where('admin', ['email_admin' => $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->loggedUser;
 
         $this->form_validation->set_rules('name', 'Full Name', 'required|trim');
 
