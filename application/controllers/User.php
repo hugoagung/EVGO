@@ -58,92 +58,108 @@ class User extends CI_Controller
 
     public function tambah_barang_masuk()
     {
-        $this->load->model('transaksi_model');
-        $this->load->model('stok_model');
+        // Form Validation
+        $this->form_validation->set_rules('jumlah', 'Jumlah', 'required|numeric');
+        $this->form_validation->set_rules('keterangan', 'Keterangan', 'required|trim|min_length[1]');
 
-        $id_barang = $this->input->post('id_barang');
-
-        $barang = $this->stok_model->satu_barang($id_barang);
-
-
-        $data = [
-            'tanggal_masuk' => date('Y-m-d'),
-            'jumlah_masuk' => abs($this->input->post('jumlah')),
-            'keterangan_masuk' => $this->input->post('keterangan'),
-            'id_barang_masuk' => $id_barang,
-        ];
-
-        // kasih kondisi brego
-        $hitungStok = $barang[0]['stok'] + abs($this->input->post('jumlah'));
-
-        if ($hitungStok < 0) {
-            $this->session->set_flashdata('eror', 'Stoknya kurang cok.');
+        if ($this->form_validation->run() == FALSE) {
+            $this->session->set_flashdata('eror', validation_errors());
             redirect('/user/barang_masuk');
-        }
+        } else {
 
-        $update = [
-            'stok' => $hitungStok
-        ];
+            $this->load->model('transaksi_model');
+            $this->load->model('stok_model');
 
-        $updateStokBarang = $this->stok_model->update_barang($update, $id_barang);
+            $id_barang = $this->input->post('id_barang');
+            $barang = $this->stok_model->satu_barang($id_barang);
+            $data = [
+                'tanggal_masuk' => date('Y-m-d'),
+                'jumlah_masuk' => abs($this->input->post('jumlah')),
+                'keterangan_masuk' => $this->input->post('keterangan'),
+                'id_barang_masuk' => $id_barang,
+            ];
 
-        if ($updateStokBarang) {
-            $proses = $this->transaksi_model->tambah_barang_masuk($data);
+            // kasih kondisi brego
+            $hitungStok = $barang[0]['stok'] + abs($this->input->post('jumlah'));
 
-            if ($proses) {
-                $this->session->set_flashdata('sukses', 'Berhasil tambah barang masuk.');
-                redirect('/user/barang_masuk');
-            } else {
-                $this->session->set_flashdata('eror', 'Gagal ');
+            if ($hitungStok < 0) {
+                $this->session->set_flashdata('eror', 'Stoknya kurang cok.');
                 redirect('/user/barang_masuk');
             }
-        } else {
-            $this->session->set_flashdata('eror', 'Gagal update stok barang.');
-            redirect('/user/barang_masuk');
+
+            $update = [
+                'stok' => $hitungStok
+            ];
+
+            $updateStokBarang = $this->stok_model->update_barang($update, $id_barang);
+
+            if ($updateStokBarang) {
+                $proses = $this->transaksi_model->tambah_barang_masuk($data);
+
+                if ($proses) {
+                    $this->session->set_flashdata('sukses', 'Berhasil tambah barang masuk.');
+                    redirect('/user/barang_masuk');
+                } else {
+                    $this->session->set_flashdata('eror', 'Gagal ');
+                    redirect('/user/barang_masuk');
+                }
+            } else {
+                $this->session->set_flashdata('eror', 'Gagal update stok barang.');
+                redirect('/user/barang_masuk');
+            }
         }
     }
 
     public function update_barang_masuk()
     {
-        $this->load->model('transaksi_model');
-        $this->load->model('stok_model');
+        // Form Validation
+        $this->form_validation->set_rules('jumlah', 'Jumlah', 'required|numeric');
+        $this->form_validation->set_rules('keterangan', 'Keterangan', 'required|trim|min_length[1]');
 
-        $id_barang = $this->input->post('id_barang');
-        $id = $this->input->post('id');
+        if ($this->form_validation->run() == FALSE) {
+            $this->session->set_flashdata('eror', validation_errors());
+            redirect('/user/barang_masuk');
+        } else {
+            $this->load->model('transaksi_model');
+            $this->load->model('stok_model');
 
-        $barang = $this->stok_model->satu_barang($id_barang);
-        $barangMasuk = $this->transaksi_model->satu_barang_masuk($id);
+            $id_barang = $this->input->post('id_barang');
+            $id = $this->input->post('id');
 
-        $data = [
-            'tanggal_masuk' => date('Y-m-d'),
-            'jumlah_masuk' => abs($this->input->post('jumlah')),
-            'keterangan_masuk' => $this->input->post('keterangan'),
-            'id_barang_masuk' => $id_barang,
-        ];
+            $barang = $this->stok_model->satu_barang($id_barang);
+            $barangMasuk = $this->transaksi_model->satu_barang_masuk($id);
 
-        $stokSaatIni = $barang[0]['stok'];
-        $normalisasiStok = $stokSaatIni - $barangMasuk[0]['jumlah'];
+            $data = [
+                'tanggal_masuk' => date('Y-m-d'),
+                'jumlah_masuk' => abs($this->input->post('jumlah')),
+                'keterangan_masuk' => $this->input->post('keterangan'),
+                'id_barang_masuk' => $id_barang,
+            ];
 
-        $hitungStok = $normalisasiStok + $this->input->post('jumlah');
-        $update = [
-            'stok' => $hitungStok
-        ];
+            $stokSaatIni = $barang[0]['stok'];
+            $normalisasiStok = $stokSaatIni - $barangMasuk[0]['jumlah'];
 
-        $updateStokBarang = $this->stok_model->update_barang($update, $id_barang);
+            $hitungStok = $normalisasiStok + $this->input->post('jumlah');
+            $update = [
+                'stok' => $hitungStok
+            ];
 
-        if ($updateStokBarang) {
-            $proses = $this->transaksi_model->update_barang_masuk($data, $id);
+            $updateStokBarang = $this->stok_model->update_barang($update, $id_barang);
 
-            if ($proses) {
-                $this->session->set_flashdata('sukses', 'Berhasil update barang masuk.');
-                redirect('/user/barang_masuk');
+            if ($updateStokBarang) {
+                $proses = $this->transaksi_model->update_barang_masuk($data, $id);
+
+                if ($proses) {
+                    $this->session->set_flashdata('sukses', 'Berhasil update barang masuk.');
+                    redirect('/user/barang_masuk');
+                } else {
+                    $this->session->set_flashdata('eror', 'Gagal ');
+                    redirect('/user/barang_masuk');
+                }
             } else {
-                $this->session->set_flashdata('eror', 'Gagal ');
+                $this->session->set_flashdata('eror', 'Gagal update stok barang.');
                 redirect('/user/barang_masuk');
             }
-        } else {
-            $this->session->set_flashdata('eror', 'Gagal update stok barang.');
-            redirect('/user/barang_masuk');
         }
     }
 
@@ -180,85 +196,114 @@ class User extends CI_Controller
 
     public function tambah_barang_keluar()
     {
-        $this->load->model('transaksi_model');
-        $this->load->model('stok_model');
+        // Form Validation
+        $this->form_validation->set_rules('jumlah', 'Jumlah', 'required|numeric');
+        $this->form_validation->set_rules('keterangan', 'Keterangan', 'required|trim|min_length[1]');
 
-        $id_barang = $this->input->post('id_barang');
+        if ($this->form_validation->run() == FALSE) {
+            $this->session->set_flashdata('eror', validation_errors());
+            redirect('/user/barang_keluar');
+        } else {
+            $this->load->model('transaksi_model');
+            $this->load->model('stok_model');
 
-        $barang = $this->stok_model->satu_barang($id_barang);
+            $id_barang = $this->input->post('id_barang');
 
-        $data = [
-            'tanggal_keluar' => date('Y-m-d'),
-            'jumlah_keluar' => $this->input->post('jumlah'),
-            'keterangan_keluar' => $this->input->post('keterangan'),
-            'id_barang_keluar' => $id_barang,
-        ];
+            $barang = $this->stok_model->satu_barang($id_barang);
 
-        $hitungStok = $barang[0]['stok'] - $this->input->post('jumlah');
-        $update = [
-            'stok' => $hitungStok
-        ];
+            $data = [
+                'tanggal_keluar' => date('Y-m-d'),
+                'jumlah_keluar' => $this->input->post('jumlah'),
+                'keterangan_keluar' => $this->input->post('keterangan'),
+                'id_barang_keluar' => $id_barang,
+            ];
 
-        $updateStokBarang = $this->stok_model->update_barang($update, $id_barang);
+            $hitungStok = $barang[0]['stok'] - $this->input->post('jumlah');
+            $update = [
+                'stok' => $hitungStok
+            ];
 
-        if ($updateStokBarang) {
-            $proses = $this->transaksi_model->tambah_barang_keluar($data);
-
-            if ($proses) {
-                $this->session->set_flashdata('sukses', 'Berhasil tambah barang keluar.');
+            if ($hitungStok < 0) {
+                $this->session->set_flashdata('eror', "Stoknya kurang bejir.");
                 redirect('/user/barang_keluar');
             } else {
-                $this->session->set_flashdata('eror', 'Gagal');
-                redirect('/user/barang_keluar');
+                $updateStokBarang = $this->stok_model->update_barang($update, $id_barang);
+
+                if ($updateStokBarang) {
+                    $proses = $this->transaksi_model->tambah_barang_keluar($data);
+
+                    if ($proses) {
+                        $this->session->set_flashdata('sukses', 'Berhasil tambah barang keluar.');
+                        redirect('/user/barang_keluar');
+                    } else {
+                        $this->session->set_flashdata('eror', 'Gagal');
+                        redirect('/user/barang_keluar');
+                    }
+                } else {
+                    $this->session->set_flashdata('eror', 'Gagal update barang keluar.');
+                    redirect('/user/barang_keluar');
+                }
             }
-        } else {
-            $this->session->set_flashdata('eror', 'Gagal update barang keluar.');
-            redirect('/user/barang_keluar');
         }
     }
 
-
     public function update_barang_keluar()
     {
-        $this->load->model('transaksi_model');
-        $this->load->model('stok_model');
+        // Form Validation
+        $this->form_validation->set_rules('jumlah', 'Jumlah', 'required|numeric');
+        $this->form_validation->set_rules('keterangan', 'Keterangan', 'required|trim|min_length[1]');
 
-        $id_barang = $this->input->post('id_barang');
-        $id = $this->input->post('id');
+        if ($this->form_validation->run() == FALSE) {
+            $this->session->set_flashdata('eror', validation_errors());
+            redirect('/user/barang_keluar');
+        } else {
 
-        $barang = $this->stok_model->satu_barang($id_barang);
-        $barangMasuk = $this->transaksi_model->satu_barang_keluar($id);
+            $this->load->model('transaksi_model');
+            $this->load->model('stok_model');
 
-        $data = [
-            'tanggal_keluar' => date('Y-m-d'),
-            'jumlah_keluar' => abs($this->input->post('jumlah')),
-            'keterangan_keluar' => $this->input->post('keterangan'),
-            'id_barang_keluar' => $id_barang,
-        ];
+            $id_barang = $this->input->post('id_barang');
+            $id = $this->input->post('id');
 
-        $stokSaatIni = $barang[0]['stok'];
-        $normalisasiStok = $stokSaatIni - $barangMasuk[0]['jumlah_keluar'];
+            $barang = $this->stok_model->satu_barang($id_barang);
+            $barangMasuk = $this->transaksi_model->satu_barang_keluar($id);
 
-        $hitungStok = $normalisasiStok + $this->input->post('jumlah');
-        $update = [
-            'stok' => $hitungStok
-        ];
+            $data = [
+                'tanggal_keluar' => date('Y-m-d'),
+                'jumlah_keluar' => abs($this->input->post('jumlah')),
+                'keterangan_keluar' => $this->input->post('keterangan'),
+                'id_barang_keluar' => $id_barang,
+            ];
 
-        $updateStokBarang = $this->stok_model->update_barang($update, $id_barang);
+            $stokSaatIni = $barang[0]['stok'];
+            $normalisasiStok = $stokSaatIni - $barangMasuk[0]['jumlah_keluar'];
 
-        if ($updateStokBarang) {
-            $proses = $this->transaksi_model->update_barang_keluar($data, $id);
+            $hitungStok = $normalisasiStok + $this->input->post('jumlah');
+            $update = [
+                'stok' => $hitungStok
+            ];
 
-            if ($proses) {
-                $this->session->set_flashdata('sukses', 'Berhasil update barang keluar.');
+            if ($hitungStok < 0) {
+                $this->session->set_flashdata('eror', "Stoknya kurang bejir.");
                 redirect('/user/barang_keluar');
             } else {
-                $this->session->set_flashdata('eror', 'Gagal ');
-                redirect('/user/barang_keluar');
+
+                $updateStokBarang = $this->stok_model->update_barang($update, $id_barang);
+
+                if ($updateStokBarang) {
+                    $proses = $this->transaksi_model->update_barang_keluar($data, $id);
+
+                    if ($proses) {
+                        $this->session->set_flashdata('sukses', 'Berhasil update barang keluar.');
+                        redirect('/user/barang_keluar');
+                    } else {
+                        $this->session->set_flashdata('eror', 'Gagal ');
+                        redirect('/user/barang_keluar');
+                    }
+                } else {
+                    $this->session->set_flashdata('eror', 'Gagal update stok barang.');
+                    redirect('/user/barang_keluar');
+                }
             }
-        } else {
-            $this->session->set_flashdata('eror', 'Gagal update stok barang.');
-            redirect('/user/barang_keluar');
         }
     }
 
@@ -277,6 +322,7 @@ class User extends CI_Controller
             redirect('/user/barang_keluar');
         }
     }
+
     public function catatan()
     {
         $this->load->model('catatan_model');

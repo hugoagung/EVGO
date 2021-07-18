@@ -7,7 +7,7 @@
     <?php } ?>
 
     <?php if ($this->session->flashdata('eror')) { ?>
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-danger" role="alert">
             <?= $this->session->flashdata('eror') ?>
         </div>
     <?php } ?>
@@ -159,7 +159,7 @@
                     </button>
                 </div>
                 <form action="<?= base_url('user/update_barang_keluar') ?>" method="post">
-                    <input type="hidden" name="id_keluar" value="<?= $bm['id_keluar'] ?>">
+                    <input type="hidden" name="id" value="<?= $bm['id_keluar'] ?>">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="">Barang</label>
@@ -183,8 +183,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <button class="btn btn-primary" type="submit">Tambah</button>
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                        <button class="btn btn-primary" type="submit">Simpan</button>
                     </div>
                 </form>
             </div>
@@ -207,7 +207,7 @@
                     Hapus data <?= $bm['nama_barang_stok']; ?>?
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
                     <a class="btn btn-primary" href="<?= base_url('/user/hapus_Barang_keluar/') . $bm['id_keluar']; ?>">Hapus</a>
                 </div>
             </div>
