@@ -12,13 +12,13 @@ class Transaksi_Model extends CI_Model
 
     public function satu_barang_masuk($id)
     {
-        return $this->db->get_where('barang_masuk', ['id' => $id])->result_array();
+        return $this->db->get_where('barang_masuk', ['id_masuk' => $id])->result_array();
     }
 
     public function update_barang_masuk($data, $id)
     {
         $this->db->set($data);
-        $this->db->where('id', $id);
+        $this->db->where('id_masuk', $id);
         return $this->db->update('barang_masuk');
     }
 
@@ -29,7 +29,7 @@ class Transaksi_Model extends CI_Model
 
     public function hapus_barang_masuk($id)
     {
-        return $this->db->delete('barang_masuk', ['id' => $id]);
+        return $this->db->delete('barang_masuk', ['id_masuk' => $id]);
     }
 
     // Barang keluar
@@ -59,7 +59,6 @@ class Transaksi_Model extends CI_Model
     {
         return $this->db->insert('barang_keluar', $data);
     }
-
 
     public function update_barang_keluar($data, $id)
     {

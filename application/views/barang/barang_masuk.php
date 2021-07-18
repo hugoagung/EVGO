@@ -7,7 +7,7 @@
     <?php } ?>
 
     <?php if ($this->session->flashdata('eror')) { ?>
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-danger" role="alert">
             <?= $this->session->flashdata('eror') ?>
         </div>
     <?php } ?>
@@ -134,7 +134,7 @@
 
 
 <?php foreach ($Barang_masuk as $bm) : ?>
-    <div class="modal fade" id="updateModal-<?= $bm['id_barang_masuk'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="updateModal-<?= $bm['id_masuk'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -164,9 +164,7 @@
 
                         <div class="form-group">
                             <label for="">Keterangan</label>
-                            <textarea name="keterangan" id="keterangan" cols="30" rows="10" class="form-control">
-                            <?= $bm['keterangan_masuk'] ?>
-                            </textarea>
+                            <textarea name="keterangan" id="keterangan" cols="30" rows="10" class="form-control"><?= $bm['keterangan_masuk'] ?></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
