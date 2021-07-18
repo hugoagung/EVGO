@@ -79,10 +79,10 @@
                                                 <?= $bm['jumlah_keluar']; ?>
                                             </td>
                                             <td>
-                                                Rp. <?= number_format($bm['harga_stok'], 2, ',', '.'); ?>
+                                                Rp. <?= number_format($bm['harga_stok'], 0, ',', '.'); ?>
                                             </td>
                                             <td>
-                                                <?= number_format($bm['jumlah_keluar'] *  $bm['harga_stok'], 2, ',', '.'); ?>
+                                                Rp. <?= number_format($bm['jumlah_keluar'] *  $bm['harga_stok'], 0, ',', '.'); ?>
                                             </td>
 
                                             <td>

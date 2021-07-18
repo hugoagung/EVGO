@@ -38,6 +38,8 @@
                                         <th>nama barang</th>
                                         <th>kategori</th>
                                         <th>jumlah</th>
+                                        <th>Harga barang</th>
+                                        <th>Total</th>
                                         <th>Keterangan</th>
                                         <th class="bjir">option</th>
 
@@ -66,6 +68,12 @@
                                             </td>
                                             <td>
                                                 <?= $bm['jumlah_masuk']; ?>
+                                            </td>
+                                            <td>
+                                                Rp. <?= number_format($bm['harga_stok'], 0, ',', '.'); ?>
+                                            </td>
+                                            <td>
+                                                Rp. <?= number_format($bm['jumlah_masuk'] *  $bm['harga_stok'], 0, ',', '.'); ?>
                                             </td>
                                             <td>
                                                 <?= $bm['keterangan_masuk']; ?>
