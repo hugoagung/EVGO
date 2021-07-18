@@ -137,7 +137,7 @@ class User extends CI_Controller
             ];
 
             $stokSaatIni = $barang[0]['stok'];
-            $normalisasiStok = $stokSaatIni - $barangMasuk[0]['jumlah'];
+            $normalisasiStok = $stokSaatIni - $barangMasuk[0]['jumlah_masuk'];
 
             $hitungStok = $normalisasiStok + $this->input->post('jumlah');
             $update = [
@@ -265,7 +265,7 @@ class User extends CI_Controller
             $id = $this->input->post('id');
 
             $barang = $this->stok_model->satu_barang($id_barang);
-            $barangMasuk = $this->transaksi_model->satu_barang_keluar($id);
+            $barangKeluar = $this->transaksi_model->satu_barang_keluar($id);
 
             $data = [
                 'tanggal_keluar' => date('Y-m-d'),
@@ -275,7 +275,7 @@ class User extends CI_Controller
             ];
 
             $stokSaatIni = $barang[0]['stok'];
-            $normalisasiStok = $stokSaatIni - $barangMasuk[0]['jumlah_keluar'];
+            $normalisasiStok = $stokSaatIni + $barangKeluar[0]['jumlah_keluar'];
 
             $hitungStok = $normalisasiStok - $this->input->post('jumlah');
             $update = [
