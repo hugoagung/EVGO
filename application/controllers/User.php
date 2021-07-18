@@ -277,7 +277,7 @@ class User extends CI_Controller
             $stokSaatIni = $barang[0]['stok'];
             $normalisasiStok = $stokSaatIni - $barangMasuk[0]['jumlah_keluar'];
 
-            $hitungStok = $normalisasiStok + $this->input->post('jumlah');
+            $hitungStok = $normalisasiStok - $this->input->post('jumlah');
             $update = [
                 'stok' => $hitungStok
             ];
