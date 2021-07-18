@@ -138,7 +138,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel">Tambah Barang Masuk</h5>
+                    <h5 class="modal-title" id="deleteModalLabel">Ubah Barang Masuk</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -168,8 +168,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <button class="btn btn-primary" type="submit">Tambah</button>
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                        <button class="btn btn-primary" type="submit">Simpan</button>
                     </div>
                 </form>
             </div>
@@ -191,7 +191,7 @@
                     Hapus data <?= $bm['nama_barang_stok']; ?>?
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
                     <a class="btn btn-primary" href="<?= base_url('/user/hapus_Barang_masuk/') . $bm['id_masuk']; ?>">Hapus</a>
                 </div>
             </div>
