@@ -75,7 +75,7 @@
                         <?= $bm['stok']; ?>
                       </td>
                       <td>
-                        Rp. <?= number_format($bm['harga_stok'], 2, ',', '.'); ?>
+                        Rp. <?= number_format($bm['harga_stok'], 0, ',', '.'); ?>
                       </td>
                       <td>
                         <button type="button" data-toggle="modal" data-target="#update_modal<?= $bm['id_stok']; ?>" class=" btn btn-primary">Update</button>

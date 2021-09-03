@@ -36,7 +36,7 @@
                     <th>Kategori</th>
                     <th>Stock</th>
                     <th>Harga</th>
-                   
+
                   </tr>
                 </thead>
                 <tbody>
@@ -74,7 +74,7 @@
                       <td>
                         <?= $bm['harga']; ?>
                       </td>
-                      
+
                     </tr>
                   <?php endforeach; ?>
 
@@ -86,4 +86,3 @@
       </div>
     </div>
   </div>
-

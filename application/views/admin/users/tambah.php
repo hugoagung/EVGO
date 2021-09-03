@@ -9,7 +9,7 @@
     <?php } ?>
 
     <?php if ($this->session->flashdata('eror')) { ?>
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-danger" role="alert">
             <?= $this->session->flashdata('eror') ?>
         </div>
     <?php } ?>
@@ -52,19 +52,13 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Nama</label>
-                                    <input type="text" class="form-control" name="name"required>
+                                    <input type="text" class="form-control" name="name" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <input type="password" class="form-control" name="password"required>
+                                    <input type="password" class="form-control" name="password" required>
                                 </div>
-                                <div class="form-group">
-                                    <label>Aktif</label>
-                                    <select name="is_active" class="form-control">
-                                        <option value="1">Aktif</option>
-                                        <option value="0">Nonaktif</option>
-                                    </select>
-                                </div>
+
                             </div>
                         </div>
                     </div>

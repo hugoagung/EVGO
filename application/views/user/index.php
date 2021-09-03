@@ -19,7 +19,7 @@
                 <div class="card-body">
                     <h5 class="card-title"><?= $user['name_admin']; ?></h5>
                     <p class="card-text"><?= $user['email_admin']; ?></p>
-                    <p class="card-text"><small class="text-muted">Member since <?= date('d F Y', $user['date_created_admin']); ?></small></p>
+                    <p class="card-text"><small class="text-muted">bergabung/edit <?= date('d F Y', $user['date_created_admin']); ?></small></p>
                 </div>
             </div>
         </div>

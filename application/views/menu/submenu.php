@@ -41,7 +41,7 @@
                             <td><?= $sm['menu']; ?></td>
                             <td><?= $sm['url']; ?></td>
                             <td><?= $sm['icon']; ?></td>
-                            <td><?= $sm['is_active']; ?></td>
+                        
 
 
 
@@ -95,14 +95,7 @@
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="icon" name="icon" placeholder="Submenuicon">
                                     </div>
-                                    <div class="form-group">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="1" name="is_active" id="is_active" checked>
-                                            <label class="form-check-label" for="is_active">
-                                                active?
-                                            </label>
-                                        </div>
-                                    </div>
+                                   
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                         <button type="submit" class="btn btn-primary">Add</button>

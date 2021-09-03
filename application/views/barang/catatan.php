@@ -84,7 +84,7 @@
   <div class="modal fade" id="update_modal<?= $ac['id_catatan']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <form action="<?= base_url('user/update_catatan'); ?>" method="POST">
+        <form action="<?= base_url('admin/update_catatan'); ?>" method="POST">
           <div class="modal-header">
             <h5 class="modal-title" id="deleteModalLabel">Update Data</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
@@ -124,7 +124,7 @@
 <?php foreach ($ambil_catatan as $ac) : ?>
   <div class="modal fade" id="delete_modal<?= $ac['id_catatan']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <form action="<?= base_url('user/hapus_catatan') ?>" method="post">
+      <form action="<?= base_url('admin/hapus_catatan') ?>" method="post">
         <input type="hidden" name="id" value="<?= $ac['id_catatan']; ?>">
         <div class="modal-content">
           <div class="modal-header">
@@ -151,7 +151,7 @@
 <div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <form action="<?= base_url('user/tambah_catatan'); ?>" method="POST">
+      <form action="<?= base_url('admin/tambah_catatan'); ?>" method="POST">
         <div class="modal-header">
           <h5 class="modal-title" id="deleteModalLabel">Tambah Data</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">

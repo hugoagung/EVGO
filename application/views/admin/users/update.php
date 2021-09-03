@@ -61,17 +61,7 @@
                                     </label>
                                     <input type="password" class="form-control" name="password">
                                 </div>
-                                <div class="form-group">
-                                    <label>Aktif</label>
-                                    <select name="is_active" class="form-control">
-                                        <option value="1" <?php if ($data['is_active'] == 1) {
-                                                                echo 'selected';
-                                                            } ?>>Aktif</option>
-                                        <option value="0" <?php if ($data['is_active'] == 0) {
-                                                                echo 'selected';
-                                                            } ?>>Nonaktif</option>
-                                    </select>
-                                </div>
+
                             </div>
                         </div>
                     </div>

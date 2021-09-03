@@ -110,7 +110,7 @@
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <form action="<?= base_url('user/tambah_barang_masuk') ?>" method="post">
+            <form action="<?= base_url('admin/tambah_barang_masuk') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="">Barang</label>
@@ -151,7 +151,7 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <form action="<?= base_url('user/update_barang_masuk') ?>" method="post">
+                <form action="<?= base_url('admin/update_barang_masuk') ?>" method="post">
                     <input type="hidden" name="id" value="<?= $bm['id_masuk'] ?>">
                     <div class="modal-body">
                         <div class="form-group">
@@ -200,7 +200,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                    <a class="btn btn-primary" href="<?= base_url('/user/hapus_Barang_masuk/') . $bm['id_masuk']; ?>">Hapus</a>
+                    <a class="btn btn-primary" href="<?= base_url('/admin/hapus_Barang_masuk/') . $bm['id_masuk']; ?>">Hapus</a>
                 </div>
             </div>
         </div>

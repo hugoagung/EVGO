@@ -15,27 +15,18 @@
 
     <!-- Nav Item - Dashboard -->
     <!-- Heading -->
-    <?php
 
-    if ($this->session->userdata('role_id') == 1) {
 
-    ?>
-   
-      
-   
-    <?php } ?>
-
-    
     <div class="sidebar-heading">
         Admin
     </div>
-   
+
     <li class="nav-item ">
-        <a class="nav-link " href="<?= base_url('user/') ?>">
+        <a class="nav-link " href="<?= base_url('admin/') ?>">
             <i class="fas fa-home"></i>
             <span>Profil</span></a>
     </li>
-    
+
 
 
     <!-- QUERY MENU -->
@@ -105,13 +96,13 @@
 
 
     <li class="nav-item">
-        <a class="nav-link" href=" <?= base_url('user/edit') ?>">
+        <a class="nav-link" href=" <?= base_url('admin/edit') ?>">
             <i class="far fa-id-card"></i>
             <span>Edit Profile</span></a>
     </li>
 
     <!-- Nav Item - Tables -->
-   
+
     <!-- Divider -->
 
     <li class="nav-item">
@@ -127,8 +118,8 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Tranksaksi</h6>
-                <a class="collapse-item" href="<?= base_url('user/barang_masuk') ?>">Barang Masuk</a>
-                <a class="collapse-item" href="<?= base_url('user/barang_keluar') ?>">Barang Keluar</a>
+                <a class="collapse-item" href="<?= base_url('admin/barang_masuk') ?>">Barang Masuk</a>
+                <a class="collapse-item" href="<?= base_url('admin/barang_keluar') ?>">Barang Keluar</a>
             </div>
         </div>
     </li>
@@ -138,15 +129,15 @@
 
     <!-- Nav Item - Tables -->
     <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('user/catatan') ?>">
+        <a class="nav-link" href="<?= base_url('admin/catatan') ?>">
             <i class="fas fa-fw fa-table"></i>
             <span>CATATAN</span></a>
     </li>
     <li class="nav-item">
-            <a class="nav-link " href="<?= base_url('admin/users') ?>">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Managemen</span></a>
-        </li>
+        <a class="nav-link " href="<?= base_url('admin/users') ?>">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Managemen</span></a>
+    </li>
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 

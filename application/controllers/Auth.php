@@ -30,29 +30,16 @@ class Auth extends CI_Controller
         $password = $this->input->post('password'); //pemngambilan inputan di login dan kemudian di bungkus dengan $password
         $user = $this->db->get_where('admin', ['email_admin' => $email])->row_array();
         if ($user) {
-            // jika usernya aktif
-            if ($user['is_active'] == 1) {
-                //cek password
-                if (password_verify($password, $user['password_admin'])) { //pengecekan password antara nilai input di login dan di database
-                    // kalo sudah verify, simpan data2 di session 
-                    $data = [
-                        'email' => $user['email_admin'],
-                        'role_id' => $user['role_id'] // untuk membedakan antara user dan admin 
-                    ];
-                    $this->session->set_userdata($data);
-                    if ($user['role_id'] == 1) {
-                        redirect('admin');
-                    } else {
-                        redirect('user');
-                    }
-                } else {
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-                    Password salah</div>');
-                    redirect('auth');
-                }
+            if (password_verify($password, $user['password_admin'])) { //pengecekan password antara nilai input di login dan di database
+                // kalo sudah verify, simpan data2 di session 
+                $data = [
+                    'id_admin'  => $user['id_admin'],
+                ];
+                $this->session->set_userdata($data);
+                redirect('admin');
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-                email ini blom di activasi</div>');
+                Password salah</div>');
                 redirect('auth');
             }
         } else {
@@ -70,11 +57,11 @@ class Auth extends CI_Controller
 
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
             'required' => 'Tidak Boleh Kosong Harap Di Isi!',
-            'is_unique' => 'Email Sudah Ada Tholol '
+            'is_unique' => 'Email Sudah Ada  '
         ]);
         $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]|matches[password2]', [
             'required' => 'Tidak Boleh Kosong Harap Di Isi!',
-            'matches' => 'Password Harus Sama Tholol, Mau Gelud? ',
+            'matches' => 'Password Harus Sama , Mau Gelud? ',
             'min_length' => 'password terlalu sedikit'
         ]);
         $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
@@ -95,8 +82,6 @@ class Auth extends CI_Controller
                 'email_admin' => htmlspecialchars($this->input->post('email', true)),
                 'image_admin' => 'default.jpg',
                 'password_admin' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
-                'role_id' => 2,
-                'is_active' => 1,
                 'date_created_admin' => time()
             ];
             $this->db->insert('admin', $data);
@@ -108,7 +93,7 @@ class Auth extends CI_Controller
     public function logout()
     {
 
-        $this->session->unset_userdata('email');
+        $this->session->unset_userdata('id_admin');
         $this->session->unset_userdata('role_id');
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
             berhasil logout</div>');
