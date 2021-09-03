@@ -10,6 +10,15 @@ class Transaksi_Model extends CI_Model
         return $this->db->get('barang_masuk')->result_array();
     }
 
+    public function barang_masuk_tanggal($tgl1, $tgl2)
+    {
+        $this->db->select(['barang_masuk.tanggal_masuk', 'barang_masuk.jumlah_masuk', 'barang_masuk.keterangan_masuk', 'barang_masuk.id_barang_masuk', 'barang_masuk.id_masuk', 'stok_barang.nama_barang_stok', 'stok_barang.kategori_stok', 'stok_barang.harga_stok']);
+        $this->db->join('stok_barang', 'stok_barang.id_stok = barang_masuk.id_barang_masuk');
+        $this->db->where('tanggal_masuk >=', $tgl1);
+        $this->db->where('tanggal_masuk <=', $tgl2);
+        return $this->db->get('barang_masuk')->result_array();
+    }
+
     public function satu_barang_masuk($id)
     {
         return $this->db->get_where('barang_masuk', ['id_masuk' => $id])->result_array();
@@ -50,6 +59,27 @@ class Transaksi_Model extends CI_Model
         $this->db->join('stok_barang', 'stok_barang.id_stok = barang_keluar.id_barang_keluar');
         return $this->db->get('barang_keluar')->result_array();
     }
+
+    public function barang_keluar_tanggal($tgl1, $tgl2)
+    {
+        $this->db->select(
+            [
+                'barang_keluar.tanggal_keluar',
+                'barang_keluar.jumlah_keluar',
+                'barang_keluar.keterangan_keluar',
+                'barang_keluar.id_barang_keluar',
+                'barang_keluar.id_keluar',
+                'stok_barang.nama_barang_stok',
+                'stok_barang.kategori_stok',
+                'stok_barang.harga_stok'
+            ]
+        );
+        $this->db->join('stok_barang', 'stok_barang.id_stok = barang_keluar.id_barang_keluar');
+        $this->db->where('tanggal_keluar >=', $tgl1);
+        $this->db->where('tanggal_keluar <=', $tgl2);
+        return $this->db->get('barang_keluar')->result_array();
+    }
+
     public function satu_barang_keluar($id)
     {
         return $this->db->get_where('barang_keluar', ['id_keluar' => $id])->result_array();

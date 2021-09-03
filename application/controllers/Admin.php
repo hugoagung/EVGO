@@ -727,4 +727,40 @@ class Admin extends CI_Controller
             redirect('/admin/catatan');
         }
     }
+
+    public function laporan()
+    {
+        $jenisLaporan = $this->input->post('jenis_laporan');
+
+        $tgl1 = $this->input->post('tgl1');
+        $tgl2 = $this->input->post('tgl2');
+
+        if ($jenisLaporan == "barang_masuk") {
+            $this->load->model('transaksi_model');
+            $this->load->model('stok_model');
+            $data['title'] = 'Laporan barang masuk ';
+            $data['user'] = $this->loggedUser;
+            $data['Barang_masuk'] = $this->transaksi_model->barang_masuk_tanggal($tgl1, $tgl2);
+            $data['barang'] = $this->stok_model->ambil_semua_barang_masuk();
+
+            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebar', $data);
+            $this->load->view('template/topbar', $data);
+            $this->load->view('laporan/barang_masuk');
+            $this->load->view('template/footer');
+        } else if ($jenisLaporan == "barang_keluar") {
+            $this->load->model('transaksi_model');
+            $this->load->model('stok_model');
+            $data['title'] = 'barang keluar ';
+            $data['user'] = $this->loggedUser;
+            $data['Barang_keluar'] = $this->transaksi_model->barang_keluar_tanggal($tgl1, $tgl2);
+            $data['barang'] = $this->stok_model->ambil_semua_barang_masuk();
+
+            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebar', $data);
+            $this->load->view('template/topbar', $data);
+            $this->load->view('laporan/barang_keluar');
+            $this->load->view('template/footer');
+        }
+    }
 }

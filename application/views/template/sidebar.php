@@ -138,6 +138,20 @@
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Managemen</span></a>
     </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#laporan" aria-expanded="true" aria-controls="laporan">
+            <i class="fas fa-money-check-alt"></i>
+            <span>Laporan</span>
+        </a>
+        <div id="laporan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Laporan</h6>
+                <a class="collapse-item" data-toggle="modal" aria-expanded="false" data-target="#laporanBarangMasuk">Barang Masuk</a>
+                <a class="collapse-item" data-toggle="modal" aria-expanded="false" data-target="#laporanBarangKeluar">Barang Keluar</a>
+            </div>
+        </div>
+    </li>
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
@@ -159,3 +173,61 @@
 
 </ul>
 <!-- End of Sidebar -->
+
+<div class="modal" tabindex="-1" role="dialog" id="laporanBarangMasuk">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Laporan</h5>
+            </div>
+            <div class="modal-body">
+                <p>Lihat laporan berdasarkan tanggal.</p>
+                <form method="POST" action="<?= base_url('admin/laporan') ?>">
+                    <input type="hidden" name="jenis_laporan" value="barang_masuk">
+                    <div class="form-group">
+                        <label>Dari tanggal</label>
+                        <input class="form-control" type="date" name="tgl1">
+                    </div>
+                    <div class="form-group">
+                        <label>Sampai tanggal</label>
+                        <input class="form-control" type="date" name="tgl2">
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Lihat</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="laporanBarangKeluar">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Laporan</h5>
+            </div>
+            <div class="modal-body">
+                <p>Lihat laporan berdasarkan tanggal.</p>
+                <form method="POST" action="<?= base_url('admin/laporan') ?>">
+                    <input type="hidden" name="jenis_laporan" value="barang_keluar">
+                    <div class="form-group">
+                        <label>Dari tanggal</label>
+                        <input class="form-control" type="date" name="tgl1">
+                    </div>
+                    <div class="form-group">
+                        <label>Sampai tanggal</label>
+                        <input class="form-control" type="date" name="tgl2">
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Lihat</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>

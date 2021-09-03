@@ -55,7 +55,6 @@
                                         <tr>
                                             <td>
                                                 <?= $no++; ?>
-                                                <!-- di sini variabel nonya diincrement (ditambah 1 tiap loop asu) -->
                                             </td>
                                             <td>
                                                 <?= $bm['tanggal_masuk']; ?>
